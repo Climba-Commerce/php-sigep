@@ -149,9 +149,10 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_($data->getRemetente()->getEmail(), 50));
         $writer->endElement();
         $writer->startElement('celular_remetente');
-        $writer->writeCdata($this->_($data->getRemetente()->getTelefone(), 50));
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getCelular()), 12));
         $writer->endElement();
         $writer->startElement('cpf_cnpj_remetente');
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getIdentificacao()), 14));
         $writer->endElement();
         $writer->writeElement('ciencia_conteudo_proibido','S');
         $writer->endElement();
@@ -224,6 +225,7 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_($destinatario->getNumero(), 6));
         $writer->endElement();
         $writer->startElement('cpf_cnpj_destinatario');
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $destinatario->getIdentificacao()), 14));
         $writer->endElement();
         $writer->endElement();
     }
@@ -278,8 +280,6 @@ class FecharPreListaDePostagem
                 $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
                 if ($valorDeclarado>0) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
-                } else {
-                    $writer->writeElement('valor_declarado');
                 }
             }
         }
