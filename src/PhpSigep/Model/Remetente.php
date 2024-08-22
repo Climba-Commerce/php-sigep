@@ -91,6 +91,14 @@ class Remetente extends AbstractModel
     protected $telefone;
 
     /**
+     * Codigo DDD do remetente.
+     * Obrigatorio
+     * Max length: 3
+     * @var string
+     */
+    protected $ddd;
+
+    /**
      * Celular do remetente.
      * Max length: 12
      * @var string
@@ -397,5 +405,15 @@ class Remetente extends AbstractModel
     {
         $this->referencia = $referencia;
         return $this;
+    }
+
+    public function getDDD()
+    {
+        return $this->ddd;
+    }
+
+    public function setDDD(string $ddd)
+    {
+        $this->ddd = $ddd;
     }
 }
